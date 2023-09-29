@@ -4,41 +4,43 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generador de Contraseñas</title>
+    <title>Password Manager</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Generador de Contraseñas</h1>
+    <h1>Password Manager</h1>
 
-    {% if generated_password %}
-        <p>Contraseña Generada: {{ generated_password }}</p>
-    {% endif %}
-
-    <form action="/save_password" method="post">
-        <label for="username">Nombre de Usuario:</label>
-        <input type="text" name="username" required><br>
-
-        <label for="platform">Plataforma:</label>
-        <input type="text" name="platform" required><br>
-
-        <label for="password">Contraseña:</label>
-        <input type="text" name="password" {% if generated_password %}value="{{ generated_password }}"{% endif %} required><br>
-
-        <input type="submit" value="Guardar Contraseña">
-    </form>
-
-    <h2>Contraseñas Guardadas</h2>
+    <h2>Your Passwords</h2>
     <ul>
         {% for password in passwords %}
-            <li>
-                {{ password.username }} - {{ password.platform }}
-                <!-- Agrega un formulario para cada contraseña con un botón para ir a la página de borrado -->
-                <form action="{{ url_for('delete_password', password_id=password.id) }}" method="get" style="display: inline;">
-                    <input type="submit" value="Borrar">
-                </form>
+            <li>{{ password.username }} - {{ password.platform }} <a href="{{ url_for('delete_password', password_id=password.id) }}">Delete</a>
             </li>
         {% endfor %}
     </ul>
 
-    <p><a href="/generate_password">Generar Contraseña</a></p>
+    <h2>Generate Password</h2>
+    <!-- Agrega esto a tu formulario o enlace -->
+    <form action="/generate_password" method="get">
+        <input type="submit" value="Generar Contraseña">
+    </form>
+
+    <h2>All passwords</h2>
+    <form action="/loginpasswords" method="get">
+        <input type="submit" value="All Passwords">
+    </form>
+
+    <h2>Save New Password</h2>
+    <form action="{{ url_for('save_password') }}" method="post">
+        <label for="username">Username:</label>
+        <input type="text" name="username" required><br>
+
+        <label for="platform">Platform:</label>
+        <input type="text" name="platform" required><br>
+
+        <label for="password">Password:</label>
+        <input type="text" name="password" required><br>
+
+        <input type="submit" value="Save Password">
+    </form>
 </body>
 </html>

@@ -2,20 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienvenido</title>
+    <title>Root</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='root.css') }}">
 </head>
 <body>
-    <h1>Bienvenido</h1>
-
-    <p>Selecciona una opción:</p>
-
-    <form action="/login" method="get">
-        <input type="submit" value="Iniciar Sesión">
-    </form>
-
-    <form action="/register" method="get">
-        <input type="submit" value="Registrarse">
-    </form>
+    <h1>Welcome!</h1>
+    <p><a href="{{ url_for('register') }}">Register</a></p>
+    <p><a href="{{ url_for('login') }}">Log In</a></p>
 </body>
 </html>
